@@ -22,6 +22,14 @@ public class ClothesService {
         clothesRepository.save(clothes);
     }
 
+    public int count() {
+        return clothesRepository.count();
+    }
+    public void deleteById(Long id) {
+       clothesRepository.deleteById(id);
+    }
+
+
     public Optional<Clothes> findById(Long id) {
         return clothesRepository.findById(id);
     }

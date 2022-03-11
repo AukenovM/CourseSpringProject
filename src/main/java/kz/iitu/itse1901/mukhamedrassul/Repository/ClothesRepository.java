@@ -4,7 +4,10 @@ import kz.iitu.itse1901.mukhamedrassul.Database.Clothes;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +17,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
+@EnableCaching
 public class ClothesRepository implements ClothRepo {
     private static final Log logger = LogFactory.getLog(ClothesRepository.class);
     private SessionFactory sessionFactory;
@@ -43,9 +47,12 @@ public class ClothesRepository implements ClothRepo {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public int deleteById(Long id) {
-        return 0;
+    @Transactional
+    public void deleteById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Clothes clothes = session.get(Clothes.class, id);
+
+        session.delete(clothes);
     }
 
     @Override
@@ -64,8 +71,6 @@ public class ClothesRepository implements ClothRepo {
     public Optional<Clothes> findById(Long id) {
         return Optional.of(sessionFactory.getCurrentSession().get(Clothes.class,id));
     }
-
-
 
     @Override
     @Transactional(readOnly = true)

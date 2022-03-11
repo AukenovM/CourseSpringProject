@@ -12,7 +12,7 @@ public interface ClothRepo {
 
     int update(Clothes clothes);
 
-    int deleteById(Long id);
+    void deleteById(Long id);
 
     List<Clothes> findAll();
 
@@ -21,6 +21,4 @@ public interface ClothRepo {
     Optional<Clothes> findById(Long id);
 
     String getNameById(Long id);
-
-    void delete(Clothes clothes);
 }

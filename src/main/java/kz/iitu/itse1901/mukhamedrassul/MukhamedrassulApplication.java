@@ -6,10 +6,12 @@ import kz.iitu.itse1901.mukhamedrassul.Service.ClothesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 
 @Slf4j
 @SpringBootApplication
+@EnableCaching
 public class MukhamedrassulApplication{
 
     public static void main(String[] args) {
@@ -21,8 +23,11 @@ public class MukhamedrassulApplication{
         clothesService.save(new Clothes("ada","sada","asda"));
         System.out.println(clothesService.getAllClothes());
 
-        System.out.println(clothesService.findById(1l));
-//        System.out.println(userRepository.findAll());
+        System.out.println(clothesService.findById(1L));
+        System.out.println(clothesService.count());
+        clothesService.deleteById(2L);
+
+        System.out.println(clothesService.getAllClothes());
     }
 
 
