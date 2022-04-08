@@ -1,36 +1,33 @@
 package kz.iitu.itse1901.mukhamedrassul.Service;
 
 import kz.iitu.itse1901.mukhamedrassul.Database.Clothes;
-import kz.iitu.itse1901.mukhamedrassul.Repository.ClothesRepository;
+import kz.iitu.itse1901.mukhamedrassul.Repository.ClothRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional(isolation = Isolation.SERIALIZABLE)
 public class ClothesService {
-    private final ClothesRepository clothesRepository;
+    @Autowired
+    private ClothRepo clothRepo;
 
-    public ClothesService (ClothesRepository clothesRepository){
-        this.clothesRepository = clothesRepository;
-    }
-
+    @Transactional(readOnly = true)
     public List<Clothes> getAllClothes(){
-        return clothesRepository.findAll();
+        return clothRepo.findAll();
     }
 
-    public void save(Clothes clothes) {
-        clothesRepository.save(clothes);
-    }
+    public void save(Clothes clothes) { clothRepo.save(clothes); }
 
-    public int count() {
-        return clothesRepository.count();
-    }
     public void deleteById(Long id) {
-       clothesRepository.deleteById(id);
+        clothRepo.deleteById(id);
     }
-
 
     public Optional<Clothes> findById(Long id) {
-        return clothesRepository.findById(id);
+        return clothRepo.findById(id);
     }
 }

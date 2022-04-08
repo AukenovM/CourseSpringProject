@@ -1,14 +1,17 @@
 package kz.iitu.itse1901.mukhamedrassul.Service;
 
 
-import kz.iitu.itse1901.mukhamedrassul.Repository.UserRepository;
+import kz.iitu.itse1901.mukhamedrassul.Repository.ClothRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-//@Service
+@Service
 public class UserService {
-    private final UserRepository userRepository;
+    @Autowired
+    private ClothRepo clothRepo;
 
 
     @PostConstruct
@@ -20,17 +23,4 @@ public class UserService {
     public void destroy() {
         System.out.println("Destroy Bean");
     }
-
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-//    public void addUserNew(User user) {
-//        userRepository.addUsers(user);
-//    }
-//
-//    public List<User> getUsersSmthg() {
-//        return userRepository.getUsers();
-//    }
 }

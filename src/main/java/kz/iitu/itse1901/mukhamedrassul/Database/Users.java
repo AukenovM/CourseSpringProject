@@ -1,10 +1,13 @@
 package kz.iitu.itse1901.mukhamedrassul.Database;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
+@Transactional
 public class Users implements Serializable {
     private int user_id;
     private String username;

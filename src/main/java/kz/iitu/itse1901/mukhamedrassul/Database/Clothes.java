@@ -1,32 +1,29 @@
 package kz.iitu.itse1901.mukhamedrassul.Database;
 
-
-import lombok.*;
-import org.hibernate.Hibernate;
+import com.sun.istack.NotNull;
+import kz.iitu.itse1901.mukhamedrassul.Customs.ConstraintAnnotation;
+import lombok.ToString;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Objects;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-
-//@NamedQueries({
-////        @NamedQuery(name = "Clothes.count",
-////                query = "select distinct s from Users u " +
-////                        "left join fetch s.albums a " +
-////                        "left join fetch s.instruments i " +
-////                        "where s.id = :id"),
-////        @NamedQuery(name = "Singer.findAllWithAlbum",
-////                query = "select distinct s from Singer s " +
-////                        "left join fetch s.albums a " +
-////                        "left join fetch s.instruments i")
-//})
 @Entity(name = "Clothes")
 @Table(name = "Clothes")
+@ToString
+@Transactional
 public class Clothes implements Serializable {
     private Long clothes_id;
+    @NotNull
+    @Size(min = 5, max = 25)
     private String name;
+    @ConstraintAnnotation
+    @NotNull
+    @Size(min = 5, max = 25)
     private String material_type;
     private String size;
 
@@ -81,10 +78,5 @@ public class Clothes implements Serializable {
 
     public void setSize(String size) {
         this.size = size;
-    }
-
-    @Override
-    public String toString() {
-        return "Clothes id: " + clothes_id  + " Name: " + name + " material_type: " + material_type + " size: " + size;
     }
 }

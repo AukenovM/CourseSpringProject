@@ -1,24 +1,8 @@
 package kz.iitu.itse1901.mukhamedrassul.Repository;
 
 import kz.iitu.itse1901.mukhamedrassul.Database.Clothes;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-import java.util.Optional;
+public interface ClothRepo extends JpaRepository<Clothes,Long> {
 
-public interface ClothRepo {
-    int count();
-
-    void save(Clothes clothes);
-
-    int update(Clothes clothes);
-
-    void deleteById(Long id);
-
-    List<Clothes> findAll();
-
-    List<Clothes> findByNameAndMaterialType(String name, String material_type);
-
-    Optional<Clothes> findById(Long id);
-
-    String getNameById(Long id);
 }
