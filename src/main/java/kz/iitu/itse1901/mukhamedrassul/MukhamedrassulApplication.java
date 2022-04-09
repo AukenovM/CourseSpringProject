@@ -1,5 +1,6 @@
 package kz.iitu.itse1901.mukhamedrassul;
 
+import kz.iitu.itse1901.mukhamedrassul.Config.ThreadPoolTaskSchedulerConfig;
 import kz.iitu.itse1901.mukhamedrassul.Database.Clothes;
 import kz.iitu.itse1901.mukhamedrassul.Service.ClothesService;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.validation.*;
@@ -17,11 +20,13 @@ import java.util.Set;
 @SpringBootApplication
 @EnableCaching
 @EnableTransactionManagement
+@EnableScheduling
+@EnableAsync
 public class MukhamedrassulApplication{
 
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(MukhamedrassulApplication.class, args);
-        ClothesService clothesService = applicationContext.getBean(ClothesService.class);
+        ClothesService clothesService = applicationContext.getBean(ClothesService.class, ThreadPoolTaskSchedulerConfig.class);
 
         //Clothes clothes = new Clothes(null,null,null);
 
